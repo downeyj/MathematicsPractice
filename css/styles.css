@@ -1,0 +1,98 @@
+body
+{
+	padding-top: 90px;	
+}
+
+input
+{
+	width: 45px;
+}
+
+select
+{
+	width: 90px;
+}
+
+p
+{
+	margin-top: 5px;
+}
+
+h1
+{
+	padding-bottom: 10px;
+}
+
+#config
+{
+	display: none;
+}
+
+#questionBlock
+{
+	display: none;
+}
+
+#questions > div
+{
+	float: left;
+	text-align: right;
+	padding: 10px;
+}
+
+#questions > div > div
+{
+	border-bottom-width: 1px;
+	border-bottom-color: black;
+	border-bottom-style: solid;
+	margin-bottom: 2px;
+}
+
+#questions input
+{
+	text-align: right;
+}
+
+#questionButtons
+{
+	padding-top: 30px;
+	clear: left;
+}
+
+#results
+{
+	display: none;
+	clear: left;
+	padding-top: 20px;
+}
+
+#practiceAgain
+{
+	margin-top: 10px;
+}
+
+
+@media print 
+{
+	input, button
+	{
+		visibility: hidden;
+	}
+	.navbar
+	{
+		display: none;
+	}
+	body
+	{
+		padding-top: 0px;	
+	}
+	#sheetTitle
+	{
+		margin-bottom: 15px;
+	}
+}
+
+
+
+
+

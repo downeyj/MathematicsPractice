@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mathematics Practice</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/styles.css" rel="stylesheet">
+	<meta charset='utf-8'> 
+</head>
+<body>
+	
+	<div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">          
+          <a class="brand" href="#" id='home'>Math Practice Sheets</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li><a href="#" class='addition'>Addition</a></li>
+              <li><a href="#" class='subtraction'>Subtraction</a></li>
+              <li><a href="#" class='multiplication'>Multiplication</a></li>
+              <li><a href="#" class='division'>Division</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+	<div class="container">
+
+		<div id='intro' class='hero-unit'>
+			<h1>Mathematics Practice</h1>
+			MathematicsPractice.org is a free site for the practice of math. Choose what you would like to practice, create a practice sheet, and check your work. 
+			<p>
+			Practice some every day. The numbers will come to feel more familiar. Your head will get better at the calculations. Just keep at it!
+			<p>
+			Start now with <a href="#" class='addition'>addition</a>, <a href="#" class='subtraction'>subtraction</a>, <a href="#" class='multiplication'>multiplication</a>, or
+			<a href="#" class='division'>division</a>.
+		</div>
+
+
+		<div id='config'>
+			<div id='configQuestions'></div>
+			<div class='control-group'>
+				<button class='btn btn-primary btn-large' type='button' id='createPracticeSheet'>create practice sheet</button>
+			</div>
+		</div>
+
+		<div id='questionBlock' class='span8'>
+			<h1 id='sheetTitle'></h1>
+			<div id='questions'></div>
+			<div id='questionButtons'>
+				<button class='btn btn-primary btn-large' type='button' id='checkWork'>check my work</button>
+				<input type='button' value='print' class='btn btn-large' onClick='window.print()'>
+				<button class='btn btn-large' type='button' id='cancel'>cancel</button>
+			</div>
+		</div>
+
+		<div id='results'>
+			<div id='resultsText'></div>
+			<button class='btn btn-primary btn-large' type='button' id='practiceAgain'>practice again</button>
+		</div>
+
+	</div>
+
+	<script type="text/template" id="resultsTemplate">
+			You got <%= numRight %> right out of <%= numQuestions %>. That is <%= percent %> percent. <br>
+			It took <%= minutes %> minutes and <%= seconds %> seconds.
+			<br>
+	</script>
+
+	<script type="text/template" id="questionTemplate">
+		<div class='question'>
+			<div class='operands'><%= operand1 %><br><%= operator %>  <%= operand2 %></div>
+			<input type='text' id='<%= id %>'>
+		</div>
+	</script>
+
+	<script type="text/template" id="configTemplate">
+		<form class='form-horizontal'>
+					<h1>Prepare <%= type %> Practice Sheet</h1>
+					<div class="control-group">
+						<label for='numQuestions' class="control-label">Number of Questions</label>
+						<div class="controls">
+							<select id='numQuestions'>
+								<option selected value='10'>10</option>
+								<option value='20'>20</option>
+								<option value='30'>30</option>
+								<option value='40'>40</option>
+							</select>
+						</div>
+					</div>
+					<div class="control-group">
+						<label for='numDigits' class="control-label">Number of Digits</label>
+						<div class="controls">
+							<select id='numDigits'>
+								<option selected value='1'>1</option>
+								<option value='2'>2</option>
+								<option value='3'>3</option>
+						</select>
+						</div>
+					</div>
+					<div class="control-group">
+						<label for='alwaysStartWith' class="control-label"><%= firstOperatorChoice %></label>
+						<div class="controls">
+							<select id='alwaysStartWith'>
+								<option selected value='mixed'>Mixed</option>
+								<option value='1'>1</option>
+								<option value='2'>2</option>
+								<option value='3'>3</option>
+								<option value='4'>4</option>
+								<option value='5'>5</option>
+								<option value='6'>6</option>
+								<option value='7'>7</option>
+								<option value='8'>8</option>
+								<option value='9'>9</option>
+								<option value='10'>10</option>
+							</select>
+						</div>
+					</div>				
+			</form>
+	</script>
+
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/underscore-min.js"></script>
+    <script src="js/mathpractice.js"></script>
+<body>
+</html>
