@@ -71,6 +71,9 @@
 		<div class='question'>
 			<div class='operands'><%= operand1 %><br><%= operator %>  <%= operand2 %></div>
 			<input type='text' id='<%= id %>'>
+			<% if(withRemainder) { %>
+				<div class='remainder'>R: <input type='text' id='<%= id + 'R' %>'></div>	
+			<% } %>
 		</div>
 	</script>
 
@@ -115,7 +118,15 @@
 								<option value='10'>10</option>
 							</select>
 						</div>
-					</div>				
+					</div>
+					<% if(type=='Division') { %>
+						<div class="control-group">
+							<label for='numDigits' class="control-label">With Remainders</label>
+							<div class="controls">
+								<input type='checkbox' id='withRemainder'>
+							</div>
+						</div>
+					<% } %>
 			</form>
 	</script>
 

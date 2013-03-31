@@ -4,6 +4,7 @@ var mathPractice = (function($) {
 	var operator='+';
 	var questions=[];
 	var startTime;
+	var withRemainder=false;
 
 	function render(state)
 	{
@@ -73,11 +74,16 @@ var mathPractice = (function($) {
 			else
 			{			
 				this.operand2=Math.floor((Math.random()*max));	
-			}			
-			var quo = Math.floor((Math.random()*max));
+			}	
 			if(this.operand2==0) { ++this.operand2; }
+
+			var quo = Math.floor((Math.random()*max));			
 			if(quo==0) { ++quo; }
 			this.operand1 = this.operand2 * quo;
+			if(withRemainder)
+			{
+				this.operand1 += Math.floor(Math.random()*this.operand2);
+			}
 		}
 		else
 		{
@@ -105,7 +111,8 @@ var mathPractice = (function($) {
 			'operand1': this.operand1,
 			'operand2': this.operand2,
 			'operator': operator,
-			'id': this.id
+			'id': this.id,
+			'withRemainder': withRemainder
 		});
 		questions.push(this);	
 	}
@@ -133,7 +140,14 @@ var mathPractice = (function($) {
 			var fixedOperand = parseInt($('#alwaysStartWith').val()) || null;
 			var numQuestions=parseInt($("#numQuestions").val()) || 10;
 			var digits=parseInt($("#numDigits").val()) || 1;
-			var el = $('#questions');
+
+			withRemainder=false;
+			if(operator=='&divide;')
+			{
+				withRemainder=$("#withRemainder").is(':checked');
+			}
+
+			var el = $('#questions');			
 			el.html('');
 			questions=[];
 			for(var i = 0; i < numQuestions; i++)
@@ -166,22 +180,39 @@ var mathPractice = (function($) {
 				var question=questions[i];
 				var answerElement=$('#' + question.id);
 				var answer=parseInt(answerElement.val());
+
+				var remainderElement=$('#'  + question.id + 'R');
+				if(!remainderElement.val())
+				{
+					remainderElement.val(0);
+				}
+				var remainder = parseInt($('#'  + question.id + 'R').val()) || 0;
+				var rightAnswer;
+				var rightRemainder=0;
 				switch(operator)
 				{
 					case '+':
-						var rightAnswer=question.operand1 + question.operand2;						
+						rightAnswer=question.operand1 + question.operand2;						
 						break;
 					case '-':
-						var rightAnswer=question.operand1 - question.operand2;						
+						rightAnswer=question.operand1 - question.operand2;						
 						break;
 					case '&times;':
-						var rightAnswer=question.operand1 * question.operand2;						
+						rightAnswer=question.operand1 * question.operand2;						
 						break;		
 					case '&divide;':
-						var rightAnswer=question.operand1 / question.operand2;						
+						if(withRemainder)
+						{
+							rightAnswer = Math.floor(question.operand1 / question.operand2);
+							rightRemainder = question.operand1 % question.operand2;
+						}
+						else
+						{
+							rightAnswer=question.operand1 / question.operand2;	
+						}
 						break;			
 				}
-				if(answer === rightAnswer)
+				if(answer === rightAnswer && remainder===rightRemainder)
 				{
 					numRight++;
 					answerElement.parent().addClass('text-success');
@@ -189,8 +220,24 @@ var mathPractice = (function($) {
 				else
 				{
 					answerElement.parent().addClass('text-error');
-					answerElement.css('text-decoration','line-through');
-					answerElement.after('<br>' + rightAnswer);						
+					if(withRemainder)
+					{
+						if(answer !== rightAnswer)
+						{
+							answerElement.css('text-decoration','line-through');
+							answerElement.after('<br>' + rightAnswer);
+						}
+						if(remainder!==rightRemainder)
+						{
+							remainderElement.css('text-decoration','line-through');
+							remainderElement.after('<br>' + rightRemainder);
+						}
+					}
+					else
+					{						
+						answerElement.css('text-decoration','line-through');
+						answerElement.after('<br>' + rightAnswer);		
+					}							
 				}
 			}			
 			produceResults(numRight,questions.length);
