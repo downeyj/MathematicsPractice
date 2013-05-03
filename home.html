@@ -67,23 +67,23 @@
 			<br>
 	</script>
 
-	<script type="text/template" id="questionTemplate">
-		<div class='question'>
+	<script type="text/template" id="questionTemplate">	
+		<div class='question' id='<%= id %>'>
 			<div class='operands'><%= operand1 %><br><%= operator %>  <%= operand2 %></div>
-			<input type='text' id='<%= id %>'>
+			<input type='text' name='integer'>
 			<% if(withRemainder) { %>
-				<div class='remainder'>R: <input type='text' id='<%= id + 'R' %>'></div>	
+				<div class='remainder'>R: <input type='text' name='remainder'</div>	
 			<% } %>
 		</div>
 	</script>
 
 	<script type="text/template" id="configTemplate">
-		<form class='form-horizontal'>
-					<h1>Prepare <%= type %> Practice Sheet</h1>
+		<form id='configForm' class='form-horizontal'>
+					<h1>Prepare <%= title %> Practice Sheet</h1>
 					<div class="control-group">
 						<label for='numQuestions' class="control-label">Number of Questions</label>
 						<div class="controls">
-							<select id='numQuestions'>
+							<select id='numQuestions' name='numQuestions'>
 								<option selected value='10'>10</option>
 								<option value='20'>20</option>
 								<option value='30'>30</option>
@@ -94,17 +94,17 @@
 					<div class="control-group">
 						<label for='numDigits' class="control-label">Number of Digits</label>
 						<div class="controls">
-							<select id='numDigits'>
+							<select id='numDigits' name='numDigits'>
 								<option selected value='1'>1</option>
 								<option value='2'>2</option>
 								<option value='3'>3</option>
-						</select>
+							</select>
 						</div>
 					</div>
 					<div class="control-group">
 						<label for='alwaysStartWith' class="control-label"><%= firstOperatorChoice %></label>
 						<div class="controls">
-							<select id='alwaysStartWith'>
+							<select id='alwaysStartWith' name='alwaysStartWith'>
 								<option selected value='mixed'>Mixed</option>
 								<option value='1'>1</option>
 								<option value='2'>2</option>
@@ -119,11 +119,11 @@
 							</select>
 						</div>
 					</div>
-					<% if(type=='Division') { %>
+					<% if(title=='Division') { %>
 						<div class="control-group">
 							<label for='numDigits' class="control-label">With Remainders</label>
 							<div class="controls">
-								<input type='checkbox' id='withRemainder'>
+								<input type='checkbox' id='withRemainder' name='withRemainder'>
 							</div>
 						</div>
 					<% } %>
